@@ -1,20 +1,24 @@
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import actions from '../../redux/actions';
 import Switch from 'react-switch';
 import { Text, Wrapper, Label } from './ThemeSwitch.styled';
 import { FaMoon, FaSun } from 'react-icons/fa';
 
-export default function ThemeSwitch({ themeChange }) {
+export default function ThemeSwitch() {
   const [checked, setChecked] = useState(false);
+  const dispatch = useDispatch();
+  const themeStyle = useSelector(state => state.contacts.themeStyle);
 
   const handleChange = checked => {
-    setChecked(checked);
-    themeChange(checked);
+    checked
+      ? dispatch(actions.themeChange('dark'))
+      : dispatch(actions.themeChange('light'));
   };
+
   useEffect(() => {
-    const themeStyle = localStorage.getItem('themeStyle');
     themeStyle === 'dark' ? setChecked(true) : setChecked(false);
-  }, []);
+  }, [themeStyle]);
 
   return (
     <Label>
@@ -41,6 +45,3 @@ export default function ThemeSwitch({ themeChange }) {
     </Label>
   );
 }
-ThemeSwitch.propTypes = {
-  themeChange: PropTypes.func.isRequired,
-};

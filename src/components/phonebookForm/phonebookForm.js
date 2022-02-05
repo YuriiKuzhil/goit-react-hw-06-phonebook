@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 import { nanoid } from 'nanoid';
+import actions from '../../redux/actions';
 import {
   Form,
   Button,
@@ -10,9 +12,12 @@ import {
   PhoneIcon,
 } from './phonebookForm.styled';
 
-export default function PhonebookForm({ onSubmit }) {
+export default function PhonebookForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const dispatch = useDispatch();
+  const item = useSelector(state => state.contacts.items);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -27,7 +32,10 @@ export default function PhonebookForm({ onSubmit }) {
         return;
     }
   };
-
+  const compareNames = name => {
+    const normalizeName = name.toLowerCase();
+    return item.some(contact => contact.name.toLowerCase() === normalizeName);
+  };
   const addContact = e => {
     e.preventDefault();
 
@@ -37,7 +45,24 @@ export default function PhonebookForm({ onSubmit }) {
       number,
     };
 
-    onSubmit(contact);
+    if (compareNames(contact.name)) {
+      toast.error(`${contact.name} is already in contacts`, {
+        style: {
+          border: '1px solid #E8301C',
+          color: '#E8301C',
+        },
+      });
+      setName('');
+      setNumber('');
+      return;
+    }
+    dispatch(actions.addContact(contact));
+    toast.success(`Contact ${contact.name} added!`, {
+      style: {
+        border: '1px solid #49FF71',
+      },
+    });
+
     setName('');
     setNumber('');
   };
@@ -75,7 +100,3 @@ export default function PhonebookForm({ onSubmit }) {
     </Form>
   );
 }
-
-PhonebookForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
