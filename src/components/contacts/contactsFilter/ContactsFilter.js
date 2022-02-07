@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Label, Input, SearchIcon } from './ContactsFilter.styled';
-import actions from '../../../redux/actions';
+import actions from '../../../redux/contacts/contacts-actions';
 
 const ContactsFilter = () => {
   const value = useSelector(state => state.contacts.filter);

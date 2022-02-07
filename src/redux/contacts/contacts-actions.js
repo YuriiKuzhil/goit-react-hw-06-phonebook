@@ -11,12 +11,10 @@ const addContact = createAction('contact/add', ({ name, number }) => ({
 
 const deleteContact = createAction('contact/delete');
 const changeFilter = createAction('contact/changeFilter');
-const themeChange = createAction('contact/themeChange');
 
 const contactsActions = {
   addContact,
   deleteContact,
   changeFilter,
-  themeChange,
 };
 export default contactsActions;

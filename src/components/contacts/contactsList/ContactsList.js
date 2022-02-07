@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
-import actions from '../../../redux/actions';
+import actions from '../../../redux/contacts/contacts-actions';
 import ContactsItem from './contactsItem';
 import { List, Message } from './ContactsList.styled';
 import { FaFrown } from 'react-icons/fa';

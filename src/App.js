@@ -17,7 +17,7 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from './constantStyles/theme';
 
 export default function App() {
-  const themeStyle = useSelector(state => state.contacts.themeStyle);
+  const themeStyle = useSelector(state => state.themeStyle);
 
   return (
     <>

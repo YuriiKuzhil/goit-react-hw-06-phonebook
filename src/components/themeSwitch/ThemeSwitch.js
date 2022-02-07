@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import actions from '../../redux/actions';
+import { themeChange } from '../../redux/themeStyle/themeStyle-actions';
 import Switch from 'react-switch';
 import { Text, Wrapper, Label } from './ThemeSwitch.styled';
 import { FaMoon, FaSun } from 'react-icons/fa';
@@ -8,12 +8,10 @@ import { FaMoon, FaSun } from 'react-icons/fa';
 export default function ThemeSwitch() {
   const [checked, setChecked] = useState(false);
   const dispatch = useDispatch();
-  const themeStyle = useSelector(state => state.contacts.themeStyle);
+  const themeStyle = useSelector(state => state.themeStyle);
 
   const handleChange = checked => {
-    checked
-      ? dispatch(actions.themeChange('dark'))
-      : dispatch(actions.themeChange('light'));
+    checked ? dispatch(themeChange('dark')) : dispatch(themeChange('light'));
   };
 
   useEffect(() => {

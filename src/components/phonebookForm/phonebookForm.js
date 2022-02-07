@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import { nanoid } from 'nanoid';
-import actions from '../../redux/actions';
+import actions from '../../redux/contacts/contacts-actions';
 import {
   Form,
   Button,

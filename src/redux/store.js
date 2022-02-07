@@ -1,5 +1,6 @@
-import { configureStore } from '@reduxjs/toolkit';
-import contactsReducer from './reducer';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import contactsReducer from './contacts/contacts-reducer';
+import themeStyleReducer from './themeStyle/themeStyle-reducer';
 import {
   persistStore,
   persistReducer,
@@ -17,11 +18,12 @@ const PersistConfig = {
   storage,
   blacklist: ['filter'],
 };
-
+const rootReducer = combineReducers({
+  contacts: contactsReducer,
+  themeStyle: themeStyleReducer,
+});
 export const store = configureStore({
-  reducer: {
-    contacts: persistReducer(PersistConfig, contactsReducer),
-  },
+  reducer: persistReducer(PersistConfig, rootReducer),
 
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
